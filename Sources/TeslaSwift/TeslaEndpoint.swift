@@ -37,6 +37,7 @@ enum Endpoint {
     case getBatteryStatus(batteryID: String)
     case getBatteryData(batteryID: String)
     case getBatteryPowerHistory(batteryID: String)
+    case usersMe
 }
 
 extension Endpoint {
@@ -97,6 +98,8 @@ extension Endpoint {
                 return "/api/1/powerwalls/\(batteryID)/"
             case .getBatteryPowerHistory(let batteryID):
                 return "/api/1/powerwalls/\(batteryID)/powerhistory"
+            case .usersMe:
+                return "/api/1/users/me"
         }
 	}
 	
@@ -104,7 +107,7 @@ extension Endpoint {
 		switch self {
             case .revoke, .oAuth2Token, .oAuth2TokenCN, .wakeUp, .command:
                 return "POST"
-        case .vehicles, .vehicleSummary, .mobileAccess, .allStates, .chargeState, .climateState, .driveState, .guiSettings, .vehicleState, .vehicleConfig, .nearbyChargingSites, .oAuth2Authorization, .oAuth2revoke, .oAuth2AuthorizationCN, .oAuth2revokeCN, .products, .getEnergySiteStatus, .getEnergySiteLiveStatus, .getEnergySiteInfo, .getEnergySiteHistory, .getBatteryStatus, .getBatteryData, .getBatteryPowerHistory:
+        case .vehicles, .vehicleSummary, .mobileAccess, .allStates, .chargeState, .climateState, .driveState, .guiSettings, .vehicleState, .vehicleConfig, .nearbyChargingSites, .oAuth2Authorization, .oAuth2revoke, .oAuth2AuthorizationCN, .oAuth2revokeCN, .products, .getEnergySiteStatus, .getEnergySiteLiveStatus, .getEnergySiteInfo, .getEnergySiteHistory, .getBatteryStatus, .getBatteryData, .getBatteryPowerHistory, .usersMe:
                 return "GET"
 		}
 	}

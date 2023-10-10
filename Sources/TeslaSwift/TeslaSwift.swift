@@ -428,6 +428,17 @@ extension TeslaSwift {
         let response: Response<BatteryPowerHistory> = try await request(.getBatteryPowerHistory(batteryID: batteryID), body: nullBody)
         return response.response
     }
+    
+    /**
+    Fetches the current user
+     
+    - returns: User
+    */
+    public func currentUser() async throws -> User {
+        _ = try await checkAuthentication()
+        let response: Response<User> = try await request(.usersMe, body: nullBody)
+        return response.response
+    }
 }
 
 extension TeslaSwift {
