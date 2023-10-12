@@ -38,6 +38,7 @@ enum Endpoint {
     case getBatteryData(batteryID: String)
     case getBatteryPowerHistory(batteryID: String)
     case usersMe
+    case usersKeys
 }
 
 extension Endpoint {
@@ -100,12 +101,14 @@ extension Endpoint {
                 return "/api/1/powerwalls/\(batteryID)/powerhistory"
             case .usersMe:
                 return "/api/1/users/me"
+            case .usersKeys:
+                return "/api/1/users/keys"
         }
 	}
 	
 	var method: String {
 		switch self {
-            case .revoke, .oAuth2Token, .oAuth2TokenCN, .wakeUp, .command:
+        case .revoke, .oAuth2Token, .oAuth2TokenCN, .wakeUp, .command, .usersKeys:
                 return "POST"
         case .vehicles, .vehicleSummary, .mobileAccess, .allStates, .chargeState, .climateState, .driveState, .guiSettings, .vehicleState, .vehicleConfig, .nearbyChargingSites, .oAuth2Authorization, .oAuth2revoke, .oAuth2AuthorizationCN, .oAuth2revokeCN, .products, .getEnergySiteStatus, .getEnergySiteLiveStatus, .getEnergySiteInfo, .getEnergySiteHistory, .getBatteryStatus, .getBatteryData, .getBatteryPowerHistory, .usersMe:
                 return "GET"

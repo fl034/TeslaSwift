@@ -439,6 +439,17 @@ extension TeslaSwift {
         let response: Response<User> = try await request(.usersMe, body: nullBody)
         return response.response
     }
+    
+    /**
+    Posts an object to user keys
+     
+    - returns: Success boolean
+    */
+    public func postUsersKeys(_ keys: Encodable) async throws -> Bool {
+        _ = try await checkAuthentication()
+        let response: Response<Bool> = try await request(.usersKeys, body: keys)
+        return response.response
+    }
 }
 
 extension TeslaSwift {
