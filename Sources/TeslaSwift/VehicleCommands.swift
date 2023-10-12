@@ -40,7 +40,7 @@ public enum VehicleCommand {
     case previousFavorite
     case volumeUp
     case volumeDown
-    case shareToVehicle(options: ShareToVehicleOptions)
+    case shareToVehicle(options: Encodable)
     case cancelSoftwareUpdate
     case scheduleSoftwareUpdate
     case speedLimitSetLimit(speed: Measurement<UnitSpeed>)
