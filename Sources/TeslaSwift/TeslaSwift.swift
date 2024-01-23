@@ -557,29 +557,7 @@ extension TeslaSwift {
         _ = try await checkAuthentication()
         let response: Response<BatteryPowerHistory> = try await request(.getBatteryPowerHistory(batteryID: batteryID))
         return response.response
-    }
-    
-    /**
-    Fetches the current user
-     
-    - returns: User
-    */
-    public func currentUser() async throws -> User {
-        _ = try await checkAuthentication()
-        let response: Response<User> = try await request(.usersMe, body: nullBody)
-        return response.response
-    }
-    
-    /**
-    Posts an object to user keys
-     
-    - returns: Success boolean
-    */
-    public func postUsersKeys(_ keys: Encodable) async throws -> Bool {
-        _ = try await checkAuthentication()
-        let response: Response<Bool> = try await request(.usersKeys, body: keys)
-        return response.response
-    }
+    }       
 }
 
 //MARK: Helpers
