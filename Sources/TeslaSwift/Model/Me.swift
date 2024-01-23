@@ -10,8 +10,8 @@ import Foundation
 
 public struct Me: Codable {
     public var email: String
-    public var fullName: String
-    public var profileImageUrl: String
+    public var fullName: String?
+    public var profileImageUrl: String?
 
     enum CodingKeys: String, CodingKey {
         case email
