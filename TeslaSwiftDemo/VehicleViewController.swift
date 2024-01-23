@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import TeslaSwift
 
 class VehicleViewController: UIViewController {
 	@IBOutlet weak var textView: UITextView!
@@ -34,7 +35,7 @@ class VehicleViewController: UIViewController {
 	@IBAction func command(_ sender: AnyObject) {
         guard let vehicle = vehicle else { return }
         Task { @MainActor in
-            let response = try await api.sendCommandToVehicle(vehicle, command: .setMaxDefrost(on: false))
+            let response = try await api.sendCommandToVehicle(vehicle, command: VehicleCommand.setMaxDefrost(on: false))
             self.textView.text = (response.result! ? "true" : "false")
             if let reason = response.reason {
                 self.textView.text.append(reason)
@@ -54,7 +55,7 @@ class VehicleViewController: UIViewController {
 	@IBAction func speedLimit(_ sender: Any) {
         guard let vehicle = vehicle else { return }
         Task { @MainActor in
-            let response = try await api.sendCommandToVehicle(vehicle, command: .speedLimitClearPin(pin: "1234"))
+            let response = try await api.sendCommandToVehicle(vehicle, command: VehicleCommand.speedLimitClearPin(pin: "1234"))
             self.textView.text = (response.result! ? "true" : "false")
             if let reason = response.reason {
                 self.textView.text.append(reason)
@@ -74,7 +75,7 @@ class VehicleViewController: UIViewController {
     @IBAction func refreshToken(_ sender: Any) {
         Task { @MainActor in
             do {
-                let token = try await api.refreshWebToken()
+                let token = try await api.refreshToken()
                 self.textView.text = "New access Token:\n \(token)"
             } catch {
                 self.textView.text = "Refresh Token:\n CATCH"
@@ -85,7 +86,7 @@ class VehicleViewController: UIViewController {
     @IBAction func ampsTo16(_ sender: Any) {
         guard let vehicle = vehicle else { return }
         Task { @MainActor in
-            let response = try await api.sendCommandToVehicle(vehicle, command: .setCharging(amps: 16))
+            let response = try await api.sendCommandToVehicle(vehicle, command: VehicleCommand.setCharging(amps: 16))
             self.textView.text = (response.result! ? "true" : "false")
             if let reason = response.reason {
                 self.textView.text.append(reason)
@@ -96,7 +97,7 @@ class VehicleViewController: UIViewController {
     @IBAction func revokeToken(_ sender: Any) {
         Task { @MainActor in
             do {
-                let status = try await api.revokeWeb()
+                let status = try await api.revokeToken()
                 self.textView.text = "Revoked: \(status)"
             } catch {
                 self.textView.text = "Revoke Token:\n CATCH"
